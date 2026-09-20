@@ -14,12 +14,14 @@ export class KannelSmsHandler extends BaseSmsHandler {
       from: string;
       username?: string;
       password?: string;
+      secure?: boolean;
     } = {
       host: credentials.host || '',
       port: credentials.port || '',
       from: credentials.from || '',
       username: credentials.user,
       password: credentials.password,
+      secure: credentials.secure,
     };
 
     this.provider = new KannelSmsProvider(config);

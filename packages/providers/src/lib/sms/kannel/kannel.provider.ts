@@ -21,10 +21,12 @@ export class KannelSmsProvider extends BaseProvider implements ISmsProvider {
       from: string;
       username?: string;
       password?: string;
+      secure?: boolean;
     }
   ) {
     super();
-    this.apiBaseUrl = `http://${config.host}:${config.port}/cgi-bin`;
+    const protocol = config.secure || config.port === '443' ? 'https' : 'http';
+    this.apiBaseUrl = `${protocol}://${config.host}:${config.port}/cgi-bin`;
     this.axiosInstance = createProviderHttpClient();
   }
 

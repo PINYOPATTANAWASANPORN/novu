@@ -952,6 +952,12 @@ export const kannelConfig: IConfigCredential[] = [
     required: true,
   },
   {
+    key: CredentialsKeyEnum.Secure,
+    displayName: 'Secure',
+    type: 'switch',
+    required: false,
+  },
+  {
     key: CredentialsKeyEnum.User,
     displayName: 'Username',
     type: 'string',

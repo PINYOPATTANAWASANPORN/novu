@@ -75,3 +75,49 @@ test('should trigger Kannel SMS axios request correctly with _passthrough', asyn
     },
   });
 });
+
+test('should trigger Kannel SMS with HTTPS when secure is true or port is 443', async () => {
+  const { mockGet: fakeGet } = axiosSpy({
+    data: '0: Accepted for delivery',
+  });
+
+  const providerSecure = new KannelSmsProvider({
+    host: 'kannel.example.com',
+    port: '13000',
+    from: '0000',
+    secure: true,
+  });
+
+  await providerSecure.sendMessage({
+    content: 'Test SSL',
+    to: '+7777',
+  });
+
+  expect(fakeGet).toHaveBeenCalledWith('https://kannel.example.com:13000/cgi-bin/sendsms', {
+    params: {
+      from: '0000',
+      text: 'Test SSL',
+      to: '+7777',
+    },
+  });
+
+  const providerPort443 = new KannelSmsProvider({
+    host: 'kannel.example.com',
+    port: '443',
+    from: '0000',
+  });
+
+  await providerPort443.sendMessage({
+    content: 'Test Port 443',
+    to: '+7777',
+  });
+
+  expect(fakeGet).toHaveBeenCalledWith('https://kannel.example.com:443/cgi-bin/sendsms', {
+    params: {
+      from: '0000',
+      text: 'Test Port 443',
+      to: '+7777',
+    },
+  });
+});
+
