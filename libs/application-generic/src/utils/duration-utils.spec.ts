@@ -22,6 +22,8 @@ describe('DurationUtils', () => {
 
     it('should reject invalid dates with correct format', () => {
       expect(DurationUtils.isISO8601('2025-02-30T12:00:00Z')).toBe(false);
+      expect(DurationUtils.isISO8601('2025-02-29T12:00:00Z')).toBe(false);
+      expect(DurationUtils.isISO8601('2024-02-29T12:00:00Z')).toBe(true);
     });
   });
 
